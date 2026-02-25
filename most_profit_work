@@ -1,0 +1,21 @@
+class Solution {
+    public int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
+        int pro=0,sum=0;
+        for(int i=0;i<worker.length;i++)
+        {
+            for(int j=0;j<difficulty.length;j++)
+            {
+                if(worker[i]>=difficulty[j])
+                { 
+                    if(profit[j]>pro)
+                    {
+                        pro=profit[j];
+                    }
+                }
+            }
+            sum+=pro;
+            pro=0;
+        }
+        return sum;
+    }
+}
