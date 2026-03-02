@@ -1,0 +1,64 @@
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int low=0,high=nums.length-1,mid=0;
+        int[] arr=new int[2];
+        if(nums.length==0)
+            return new int[]{-1,-1};
+        if(nums.length<=2)
+        {
+            while(low<=high)
+            {
+                if(nums[low]==nums[high]&&nums[low]==target)
+                   return new int[]{low,high};
+                else if(nums[low]==target)
+                   return new int[]{0,0};
+                else if(nums[low]<nums[high])
+                {
+                    low=high;
+                }
+                else
+                    return new int[]{-1,-1};
+            }
+        }
+        while(low<=high)
+        {
+            mid=(low+high)/2;
+            if(mid==0)
+                break;
+            if(nums[mid]==target&&nums[mid-1]!=target) 
+            {
+                arr[0]=mid;
+                break;
+            }
+            else if(nums[mid]<target)
+                low=mid+1;
+            else
+                high=mid-1;
+        }
+        if(mid==0&&nums[mid]==target)
+            arr[0]=mid;
+        if(mid==0&&nums[mid]!=target||low>high)
+            return new int[]{-1,-1};
+        low=0;
+        high=nums.length-1;
+        mid=0;
+        while(low<=high)
+        {
+            mid=(low+high)/2;
+            if(mid==nums.length-1)
+                break;
+            if(nums[mid]==target&&nums[mid+1]!=target) 
+            {
+                arr[1]=mid;
+                break;
+            }
+            else if(nums[mid]<=target)
+                low=mid+1;
+            else
+                high=mid-1;
+        }
+        if(mid==nums.length-1&&nums[mid]==target)
+             arr[1]=mid;
+        return arr;
+    }
+}
