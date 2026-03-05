@@ -1,0 +1,21 @@
+class Solution {
+    public int[][] matrixReshape(int[][] mat, int r, int c) {
+        if(mat.length*mat[0].length!=r*c)
+           return mat;
+        int[][] arr=new int[r][c];
+        int i=0,j=0;
+        for(int k=0;k<mat.length;k++)
+        {
+            for(int l=0;l<mat[0].length;l++)
+            {
+                if(j==c)
+                {
+                    i+=1;
+                    j=0;
+                }
+                arr[i][j++]=mat[k][l];
+            }
+        }
+        return arr;
+    }
+}
