@@ -1,0 +1,32 @@
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] stack=new int[temperatures.length];
+        int[] arr=new int[temperatures.length];
+        int top=-1,count=0;
+        for(int j=temperatures.length-1;j>=0;j--)
+        {
+            int flag=0,temp=0;
+            if(top==-1)
+            {
+                stack[++top]=j;
+                arr[j]=0;
+            }
+            else
+            {
+                while(top!=-1&&temperatures[j]>=temperatures[stack[top]])
+                    top--;
+                if(top==-1)
+                {
+                   stack[++top]=j;
+                   arr[j]=0;
+                }
+                else
+                {
+                    arr[j]=stack[top]-j;
+                    stack[++top]=j;
+                }
+            }
+        }
+        return arr;
+    }
+}
