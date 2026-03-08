@@ -1,0 +1,61 @@
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        int[][] temp=new int[intervals.length+1][2];
+        List<List<Integer>> arr=new ArrayList<>();
+        int i;
+        for(i=0;i<intervals.length;i++)
+        {
+            if(intervals[i][0]>newInterval[0])
+            {
+               temp[i][0]=newInterval[0];
+               temp[i][1]=newInterval[1];
+               break;
+            }
+            temp[i][0]=intervals[i][0];
+            temp[i][1]=intervals[i][1];
+        }
+        if(i==intervals.length)
+        {
+            temp[i][0]=newInterval[0];
+            temp[i][1]=newInterval[1];
+        }
+        else
+        {
+           for(int j=i;j<intervals.length;j++)
+           {
+              temp[j+1][0]=intervals[j][0];
+              temp[j+1][1]=intervals[j][1];
+           }
+        }
+        i=temp[0][0];
+        int j=temp[0][1];
+        for(int k=1;k<temp.length;k++)
+        {
+            if(temp[k][0]>j)
+            {
+                List<Integer> nums=new ArrayList<>();
+                nums.add(i);
+                nums.add(j);
+                arr.add(nums);
+                i=temp[k][0];
+                j=temp[k][1];
+            }
+            else
+            {
+                if(j<temp[k][1])
+                   j=temp[k][1];
+            }
+        }
+        List<Integer> nums=new ArrayList<>();
+        nums.add(i);
+        nums.add(j);
+        arr.add(nums);
+        int[][] ret=new int[arr.size()][2];
+        for(int m=0;m<arr.size();m++)
+        {
+            for(int n=0;n<2;n++)
+               ret[m][n]=arr.get(m).get(n);
+        }
+        return ret;
+    }
+}
