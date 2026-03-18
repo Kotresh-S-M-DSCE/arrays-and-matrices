@@ -1,0 +1,75 @@
+class Solution {
+    public int check(int[][] mat)
+    {
+        List<Integer> temp=new ArrayList<>();
+        for(int i=0;i<9;i++)
+            temp.add(i+1);
+        int num=9;
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                for(int k=0;k<num;k++)
+                {
+                    if(mat[i][j]==temp.get(k)) 
+                    {
+                        temp.remove(k);
+                        num--;
+                        break;
+                    }
+                }
+            }
+        }
+        if(temp.size()!=0)
+           return 0;
+        int sum=0;
+        for(int i=0;i<3;i++)
+            sum+=mat[0][i];
+        int sum3=0,sum4=0;
+        for(int i=0;i<3;i++)
+        {
+            int sum1=0,sum2=0;
+            for(int j=0;j<3;j++)
+            {
+                sum1+=mat[i][j];
+                sum2+=mat[j][i];
+                if(i==j)
+                   sum3+=mat[i][j];
+                if(i+j==2)
+                   sum4+=mat[i][j];
+            }
+            if(sum!=sum1||sum!=sum2)
+               return 0;
+        }
+        if(sum!=sum3||sum!=sum4)
+            return 0;
+        return 1;
+    }
+    public int numMagicSquaresInside(int[][] grid) {
+        int count=0;
+        if(grid.length<3)
+           return 0;
+        for(int i=2;i<grid.length;i++)
+        {
+            for(int k=2;k<grid[0].length;k++)
+            {
+                int[][] arr=new int[3][3];
+                int h,j,c=0,d=0;
+                for(h=i-2;h<=i;h++)
+                {
+                    for(j=k-2;j<=k;j++)
+                    {
+                        arr[c][d++]=grid[h][j];
+                        if(d==3)
+                        {
+                            d=0;
+                            c++;
+                        }
+                    }
+                }
+                count+=check(arr);
+            }
+        }
+        return count;
+    }
+}
