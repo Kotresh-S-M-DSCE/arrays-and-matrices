@@ -1,0 +1,60 @@
+class Solution {
+    public int sing(int[] arr)
+    {
+        if(arr.length==1)
+           return arr[0];
+        int min=arr[1]-arr[0];
+        for(int i=2;i<arr.length;i++)
+        {
+            if((arr[i]-arr[i-1])<min)
+               min=arr[i]-arr[i-1];
+        }
+        return min;
+    }
+    public int conv(int[][] temp)
+    {
+        Set<Integer> set=new HashSet<>();
+        for(int i=0;i<temp.length;i++)
+        {
+            for(int j=0;j<temp[0].length;j++)
+                set.add(temp[i][j]);
+        }
+        List<Integer> list=new ArrayList<>(set);
+        int[] arr=new int[set.size()];
+        for(int i=0;i<set.size();i++)
+            arr[i]=list.get(i);
+        Arrays.sort(arr);
+        return sing(arr);
+    }
+    public int[][] minAbsDiff(int[][] grid, int k) {
+        int[][] arr=new int[grid.length-k+1][grid[0].length-k+1];
+        if(k==1)
+           return arr;
+        int a=k,b;
+        for(int i=0;i<(grid.length-k+1);i++)
+        {
+            b=k;
+            for(int j=0;j<(grid[0].length-k+1);j++)
+            {
+                int c=0,d=0;
+                int[][] temp=new int[k][k];
+                for(int m=i;m<a;m++)
+                {
+                    for(int n=j;n<b;n++)
+                    {
+                        temp[c][d++]=grid[m][n];
+                        if(d==k)
+                        {
+                            d=0;
+                            c++;
+                        }
+                    }
+                }
+                arr[i][j]=conv(temp);
+                b++;
+            }
+            a++;
+        }
+        return arr;
+    }
+}
