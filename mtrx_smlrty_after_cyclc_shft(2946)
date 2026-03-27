@@ -1,0 +1,57 @@
+class Solution {
+    public boolean areSimilar(int[][] mat, int k) {
+        int[][] temp=new int[mat.length][mat[0].length];
+        k=k%mat[0].length;
+        for(int i=0;i<mat.length;i++)
+        {
+            int n=mat[0].length-1;
+            for(int j=0;j<mat[0].length;j++)
+            {
+                temp[i][n]=mat[i][j];
+                n--;
+            }
+            if(i%2==0)
+            {
+                int num=mat[0].length-k;
+                n=num-1;
+                for(int j=0;j<num/2;j++)
+                {
+                    int a=temp[i][j];
+                    temp[i][j]=temp[i][n];
+                    temp[i][n]=a;
+                    n--;
+                }
+                n=mat[0].length-1;
+                for(int j=num;j<(num+mat[0].length)/2;j++)
+                {
+                    int a=temp[i][j];
+                    temp[i][j]=temp[i][n];
+                    temp[i][n]=a;
+                    n--;
+                }
+            }
+            else
+            {
+                n=k-1;
+                for(int j=0;j<k/2;j++)
+                {
+                    int a=temp[i][j];
+                    temp[i][j]=temp[i][n];
+                    temp[i][n]=a;
+                    n--;
+                }
+                n=mat[0].length-1;
+                for(int j=k;j<(k+mat[0].length)/2;j++)
+                {
+                    int a=temp[i][j];
+                    temp[i][j]=temp[i][n];
+                    temp[i][n]=a;
+                    n--;
+                }
+            }
+        }   
+        if(Arrays.deepEquals(mat,temp))
+           return true;
+        return false;
+    }
+}
