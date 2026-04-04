@@ -1,0 +1,70 @@
+class Solution {
+    public int thirdMax(int[] nums) {
+        HashSet<Integer> set=new HashSet<>();
+        for(int i=0;i<nums.length;i++)
+            set.add(nums[i]);
+        int[] temp=new int[set.size()];
+        int j=0;
+        for(int x:set)
+           temp[j++]=x;
+        if(set.size()==1)
+            return temp[0];
+        if(set.size()==2)
+        {
+            if(temp[0]<temp[1])
+               return temp[1];
+            else 
+               return temp[0];
+        } 
+        int fir,sec,thi;
+        if(temp[0]<temp[1])
+        {
+            fir=temp[1];
+            sec=temp[0];
+        }
+        else
+        {
+            fir=temp[0];
+            sec=temp[1];
+        }
+        if(sec<temp[2])
+        {
+            if(fir<temp[2])
+            {
+                thi=sec;
+                sec=fir;
+                fir=temp[2];
+            }
+            else
+            {
+                thi=sec;
+                sec=temp[2];
+            }
+        }
+        else
+           thi=temp[2];
+        for(int i=3;i<set.size();i++)
+        {
+            if(thi<temp[i])
+            {
+                if(sec<temp[i])
+                {
+                    if(fir<temp[i])
+                    {
+                        thi=sec;
+                        sec=fir;
+                        fir=temp[i];
+                    }
+                    else
+                    {
+                        thi=sec;
+                        sec=temp[i];
+                    }
+                }
+                else
+                    thi=temp[i];
+            }
+        }
+        return thi;
+    }
+}
