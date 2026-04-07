@@ -1,0 +1,63 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        Set<Integer> s1=new HashSet<>();
+        Set<Integer> s2=new HashSet<>();
+        Set<Integer> s3=new HashSet<>();
+        for(int i=0;i<9;i++)
+        {
+           if(i%3==0)
+           {
+              s1.clear();
+              s2.clear();
+              s3.clear();
+           }
+           Set<Integer> r1=new HashSet<>();
+           for(int j=0;j<9;j++)
+           {
+              if(Character.isDigit(board[i][j]))
+              {
+                  if(j<3)
+                  {
+                     if(!s1.contains(board[i][j]-'0'))
+                        s1.add(board[i][j]-'0');
+                    else
+                        return false;
+                  }
+                  else if(j>=3&&j<6)
+                  {
+                     if(!s2.contains(board[i][j]-'0'))
+                        s2.add(board[i][j]-'0');
+                     else
+                        return false;
+                  }
+                  else
+                  {
+                     if(!s3.contains(board[i][j]-'0'))
+                        s3.add(board[i][j]-'0');
+                     else 
+                        return false;
+                  }
+                  if(!r1.contains(board[i][j]-'0'))
+                        r1.add(board[i][j]-'0');
+                  else
+                       return false;  
+              }
+           }
+        }
+        for(int i=0;i<9;i++)
+        {
+            Set<Integer> c1=new HashSet<>();
+            for(int j=0;j<9;j++)
+            {
+                if(Character.isDigit(board[j][i]))
+                {
+                    if(!c1.contains(board[j][i]-'0'))
+                        c1.add(board[j][i]-'0');
+                    else 
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+}
