@@ -1,0 +1,17 @@
+class Solution {
+    public int xorAfterQueries(int[] nums, int[][] queries) {
+        for(int i=0;i<queries.length;i++)
+        {
+            int ind=queries[i][0];
+            while(ind<=queries[i][1])
+            {
+                nums[ind]=(int)((long)nums[ind]*queries[i][3]%1000000007);
+                ind+=queries[i][2];
+            }
+        }
+        long num=nums[0]%1000000007;
+        for(int i=1;i<nums.length;i++)
+           num^=nums[i]%1000000007;
+        return (int)num;
+    }
+}
