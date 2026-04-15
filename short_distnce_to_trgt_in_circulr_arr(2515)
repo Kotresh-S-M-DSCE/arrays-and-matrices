@@ -1,0 +1,27 @@
+class Solution {
+    public int closestTarget(String[] words, String target, int startIndex) {
+        if(words[startIndex].equals(target))
+           return 0;
+        int i=startIndex+1,j=startIndex-1,counti=1,countj=1;
+        if(i==words.length)
+            i=0;
+        if(j==-1)
+            j=words.length-1;
+        while(!words[i].equals(target)&&!words[j].equals(target)&&i!=j)
+        {
+            i++;
+            counti++;
+            j--;
+            countj++;
+            if(i==words.length)
+                i=0;
+            if(j==-1)
+                j=words.length-1;
+        }
+        if(words[i].equals(target))
+           return counti;
+        if(words[j].equals(target))
+           return countj;
+        return -1;
+    }
+}
