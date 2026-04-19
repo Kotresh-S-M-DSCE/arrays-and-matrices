@@ -1,0 +1,35 @@
+class Solution {
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        int[] stack=new int[pushed.length];
+        int top=-1,i=0,j=0;
+        if(pushed.length==1)
+           return true;
+        while(i<pushed.length)
+        {
+            while(i<pushed.length&&pushed[i]!=popped[j])
+                stack[++top]=pushed[i++];
+            if(i>pushed.length)
+               break;
+            j++;
+            while(top!=-1&&stack[top]==popped[j])
+            {
+                top--;
+                j++;
+            }
+            i++;
+        }
+        while(j<popped.length&&top!=-1)
+        {
+            if(stack[top]==popped[j])
+            {
+                top--;
+                j++;
+            }
+            else
+               return false;
+        }
+        if(top!=-1)
+           return false;
+        return true;
+    }
+}
