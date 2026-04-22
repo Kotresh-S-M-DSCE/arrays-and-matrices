@@ -1,0 +1,20 @@
+class Solution {
+    public int waysToSplitArray(int[] nums) {
+        long[] arr=new long[nums.length];
+        long[] arr2=new long[nums.length];
+        arr[nums.length-1]=nums[nums.length-1];
+        for(int i=nums.length-2;i>=0;i--)
+            arr[i]=nums[i]+arr[i+1];
+        int count=0;
+        if(nums[0]>=arr[1])
+           count++;
+        arr2[0]=nums[0];
+        for(int i=1;i<nums.length-1;i++)
+        {
+            arr2[i]=nums[i]+arr2[i-1];
+            if(arr2[i]>=arr[i+1])
+               count++;
+        }
+        return count;
+    }
+}
