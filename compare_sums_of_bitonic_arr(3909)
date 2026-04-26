@@ -1,0 +1,30 @@
+class Solution {
+    public int compareBitonicSums(int[] nums) {
+        int peak=0;
+        for(int i=1;i<nums.length-1;i++)
+        {
+            if(nums[i]>nums[i-1]&&nums[i]>nums[i+1])
+            {
+                peak=i;
+                break;
+            }
+        }
+        if(peak==0)
+        {
+            if(nums[0]>nums[1])
+               peak=0;
+            else
+               peak=nums.length-1;
+        }
+        long pre=0,post=0;
+        for(int i=0;i<peak;i++)
+           pre+=nums[i];
+        for(int i=peak+1;i<nums.length;i++)
+           post+=nums[i];
+        if(pre>post)
+           return 0;
+        if(post>pre)
+           return 1;
+        return -1;
+    }
+}
