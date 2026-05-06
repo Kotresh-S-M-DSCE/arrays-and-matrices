@@ -1,0 +1,41 @@
+class Solution {
+    public char[][] rotateTheBox(char[][] boxGrid) {
+        for(int k=0;k<boxGrid.length;k++)
+        {
+            int i=boxGrid[0].length-1,j=boxGrid[0].length-1;
+            while(i>=0&&j>=0)
+            {
+                if(boxGrid[k][i]=='#'||boxGrid[k][i]=='*')
+                {
+                    i--;
+                    j--;
+                }
+                else
+                {
+                    while(j>=0&&boxGrid[k][j]=='.')
+                       j--;
+                    if(j>=0)
+                    {
+                        if(boxGrid[k][j]=='#')
+                        {
+                            boxGrid[k][i]='#';
+                            boxGrid[k][j]='.';
+                            i--;
+                        }
+                        else
+                            i=j;
+                    }
+                }
+            }
+        }
+        char[][] ret=new char[boxGrid[0].length][boxGrid.length];
+        int n=boxGrid.length-1;
+        for(int i=0;i<boxGrid.length;i++)
+        {
+            for(int j=0;j<boxGrid[0].length;j++)
+                ret[j][n]=boxGrid[i][j];
+            n--;
+        }
+        return ret;
+    }
+}
