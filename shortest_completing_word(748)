@@ -1,0 +1,36 @@
+class Solution {
+    public String shortestCompletingWord(String s, String[] words) {
+        int[] arr=new int[26];
+        for(int i=0;i<s.length();i++)
+        {
+            if(Character.isLetter(s.charAt(i)))
+            {
+                char temp=Character.toLowerCase(s.charAt(i));
+                arr[temp-'a']++;
+            }
+        }
+        int min=1001;
+        String ret="";
+        for(int i=0;i<words.length;i++)
+        {
+            int[] check=new int[26];
+            for(int j=0;j<words[i].length();j++)
+                check[words[i].charAt(j)-'a']++;
+            int flag=0;
+            for(int j=0;j<26;j++)
+            {
+                if(arr[j]>check[j])
+                {
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==0&&min>words[i].length())
+            {
+                ret=words[i];
+                min=words[i].length();
+            }
+        }
+        return ret;
+    }
+}
