@@ -1,0 +1,19 @@
+class Solution {
+    public double averageWaitingTime(int[][] c) {
+        long sum=c[0][1]+c[0][0],store=c[0][1];
+        for(int i=1;i<c.length;i++)
+        {
+            if(sum<c[i][0])
+            {
+                sum=c[i][0]+c[i][1];
+                store+=c[i][1];
+            }
+            else
+            {
+                sum+=c[i][1];
+                store+=sum-c[i][0];
+            }
+        }
+        return (double)(store)/(double)(c.length);
+    }
+}
