@@ -1,0 +1,37 @@
+class Solution {
+    public List<Integer> addToArrayForm(int[] num, int k) {
+        List<Integer> ret=new ArrayList<>();
+        int j=num.length-1,carry=0;
+        while(k>0||j>=0)
+        {
+            int sum;
+            if(k==0)
+            {
+                sum=num[j]+carry;
+                j--;
+            }
+            else if(j<0)
+            {
+                sum=k%10+carry;
+                k/=10;
+            }
+            else
+            {
+                sum=k%10+num[j]+carry;
+                k/=10;
+                j--;
+            }
+            carry=0;
+            if(sum>9)
+            {
+                sum%=10;
+                carry=1;
+            }
+            ret.add(sum);
+        }
+        if(carry==1)
+           ret.add(1);
+        Collections.reverse(ret);
+        return ret;
+    }
+}
