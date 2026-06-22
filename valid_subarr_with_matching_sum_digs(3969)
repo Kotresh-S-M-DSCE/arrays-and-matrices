@@ -1,0 +1,41 @@
+class Solution {
+    public int countValidSubarrays(int[] nums, int x) {
+        int count=0;
+        for(int i=0;i<nums.length-1;i++)
+        {
+            long last=nums[i]%10;
+            long temp=nums[i],num=0;
+            while(temp>0)
+            {
+                num=temp;
+                temp/=10;
+            }
+            if(last==x&&num==x)
+               count++;
+            long sum=nums[i];
+            for(int j=i+1;j<nums.length;j++)
+            {
+                sum+=nums[j];
+                temp=sum;
+                last=sum%10;
+                while(temp>0)
+                {
+                    num=temp;
+                    temp/=10;
+                }
+                if(num==x&&last==x)
+                   count++;
+            }
+        }
+        int a=nums[nums.length-1]%10;
+        int b=nums[nums.length-1],c=0;
+        while(b>0)
+        {
+            c=b;
+            b/=10;
+        }
+        if(a==x&&c==x)
+           count++;
+        return count;
+    }
+}
