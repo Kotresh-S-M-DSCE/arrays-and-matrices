@@ -1,0 +1,16 @@
+class Solution {
+    public int removeCoveredIntervals(int[][] in) {
+        Set<Integer> set=new HashSet<>();
+        for(int i=0;i<in.length-1;i++)
+        {
+            for(int j=i+1;j<in.length;j++)
+            {
+                if(!set.contains(i)&&!set.contains(j)&&((in[i][0]<=in[j][0])&&(in[i][1]>=in[j][1])))
+                    set.add(j);
+                if(!set.contains(i)&&!set.contains(j)&&((in[i][0]>=in[j][0])&&(in[i][1]<=in[j][1])))
+                    set.add(i);
+            }
+        }
+        return (in.length-set.size());
+    }
+}
