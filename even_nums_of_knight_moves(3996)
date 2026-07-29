@@ -1,0 +1,7 @@
+class Solution {
+    public boolean canReach(int[] s, int[] t) {
+        if((((s[0]+s[1])%2==0)&&((t[0]+t[1])%2==0))||(((s[0]+s[1])%2!=0)&&((t[0]+t[1])%2!=0)))
+           return true;
+        return false;
+    }
+} 
