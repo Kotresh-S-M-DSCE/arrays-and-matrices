@@ -1,0 +1,68 @@
+class Solution {
+    public int minOperations(int[] nums, int x) {
+        int i=1,j=nums.length-1,track=1000000;
+        long sum=nums[0];
+        if(nums[0]==x)
+           return 1;
+        if(nums[0]>x)
+        {
+            sum=0;
+            i=-1;
+        }
+        while(i>=0&&i<nums.length)
+        {
+            if(sum>x)
+            {
+                sum-=nums[--i];
+                i--;
+                break;
+            }
+            else if(sum<x)
+               sum+=nums[i++];
+            else
+            {
+                if(track>i)
+                   track=i;
+                sum-=nums[--i];
+                i--;
+                break;
+            }
+        }
+        if(sum==x)
+           return nums.length;
+        if(i==nums.length)
+           return -1;
+        int temp=i+1;
+        while(j>=0)
+        {
+            if(sum>x)
+            {
+                if(i>=0)
+                {
+                    temp--;
+                    sum-=nums[i--];
+                }
+                else 
+                   break;
+            }
+            else if(sum<x)
+               sum+=nums[j--];
+            else
+            {
+                if(track>(nums.length-j-1+temp))
+                   track=(nums.length-j-1+temp);
+                if(i>=0)
+                {
+                    temp--;
+                    sum-=nums[i--];
+                }
+                else
+                   break;
+                   
+            }
+        }
+        if(track==1000000)
+           return -1;
+        return track;
+    }
+}
