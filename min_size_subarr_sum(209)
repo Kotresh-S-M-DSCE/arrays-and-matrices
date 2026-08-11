@@ -1,0 +1,29 @@
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        if(nums[0]>=target)
+           return 1;
+        if(nums.length==1&&nums[0]<target)
+           return 0;
+        int i=0,j=1,track=1000000;
+        long sum=nums[0]+nums[1];
+        while(i<nums.length&&j<nums.length)
+        {
+            if(sum<target)
+            {
+                if(j<nums.length-1)
+                   sum+=nums[++j];
+                else 
+                   break;
+            }
+            else
+            {
+                if(track>(j-i+1))
+                   track=j-i+1;
+                sum-=nums[i++];
+            }
+        }
+        if(track==1000000)
+           return 0;
+        return track;
+    }
+}
