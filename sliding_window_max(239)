@@ -1,0 +1,32 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int[] arr=new int[nums.length];
+        int st=0,end=-1;
+        arr[++end]=0;
+        int[] ret=new int[nums.length-k+1];
+        for(int i=1;i<k;i++)
+        {
+            if(nums[i]>nums[arr[end]])
+            {
+                while(end>=0&&nums[i]>nums[arr[end]])
+                  end--;
+            }
+            arr[++end]=i;
+        }
+        int ind=0;
+        ret[ind++]=nums[arr[st]];
+        for(int i=k;i<nums.length;i++)
+        {
+            if(i-k==arr[st])
+               st++;
+            if(nums[i]>nums[arr[end]])
+            {
+                while(st<=end&&nums[i]>nums[arr[end]])
+                   end--;
+            }
+            arr[++end]=i;
+            ret[ind++]=nums[arr[st]];
+        }
+        return ret;
+    }
+}
