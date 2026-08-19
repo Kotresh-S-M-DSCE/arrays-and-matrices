@@ -37,4 +37,4 @@ class Solution {
         }
         return count+2*(n-map.size());
     }
-}
+} 
