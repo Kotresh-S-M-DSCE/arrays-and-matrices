@@ -1,0 +1,22 @@
+class Solution {
+    List<List<Integer>> Blist=new ArrayList<>();
+    // 1 2 3 4 5
+    public List<Integer> fun(int[] nums,int low,int high,List<Integer> list)
+    {
+        if(low<=high)
+        {
+           for(int i=low;i<=high;i++)
+           {
+               list.add(nums[i]);
+               List<Integer> temp=new ArrayList<>(fun(nums,i+1,high,list));
+               Blist.add(temp);
+               list.remove(list.size()-1);
+           }
+        }
+        return list;
+    }
+    public List<List<Integer>> subsets(int[] nums) {
+        Blist.add(fun(nums,0,nums.length-1,new ArrayList<>()));
+        return Blist;
+    }
+}
