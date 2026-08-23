@@ -1,0 +1,26 @@
+class Solution {
+    List<List<Integer>> ret=new ArrayList<>();
+    public void fun(int[] arr,int k,int n,int low,int sum,List<Integer> list)
+    {
+        if(list.size()<k&&sum<n)
+        {
+            for(int i=low;i<arr.length;i++)
+            {
+                sum+=arr[i];
+                list.add(arr[i]);
+                fun(arr,k,n,i+1,sum,list);
+                sum-=arr[i];
+                list.remove(list.size()-1);
+            }
+        }
+        if(list.size()==k&&sum==n)
+           ret.add(new ArrayList<>(list));
+    }
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        int[] arr=new int[9];
+        for(int i=0;i<9;i++)
+           arr[i]=i+1;
+        fun(arr,k,n,0,0,new ArrayList<>());
+        return ret;
+    }
+}
