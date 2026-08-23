@@ -1,0 +1,28 @@
+class Solution {
+    List<List<Integer>> ret=new ArrayList<>();
+    public void fun(int[] c,int t,int sum,int low,List<Integer> list)
+    {
+        if(sum<t)
+        {
+            for(int i=low;i<c.length;i++)
+            {
+                if(i>low&&c[i]==c[i-1])
+                   continue;
+                sum+=c[i];
+                list.add(c[i]);
+                fun(c,t,sum,i+1,list);
+                sum-=c[i];
+                list.remove(list.size()-1);
+            }
+        }
+        if(sum==t)
+           ret.add(new ArrayList<>(list));
+    }
+    public List<List<Integer>> combinationSum2(int[] c, int t) {
+        // 1 1 2 5 6 7 10
+        // 1 2 2 2 5
+        Arrays.sort(c);
+        fun(c,t,0,0,new ArrayList<>());
+        return ret;
+    }
+}
