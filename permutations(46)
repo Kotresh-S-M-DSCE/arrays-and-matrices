@@ -1,0 +1,29 @@
+class Solution {
+    List<List<Integer>> ret=new ArrayList<>();
+    public void fun(int[] nums,boolean[] bool,List<Integer> list)
+    {
+        if(list.size()<nums.length)
+        {
+            for(int i=0;i<nums.length;i++)
+            {
+                if(bool[i]==false)
+                {
+                    list.add(nums[i]);
+                    bool[i]=true;
+                    fun(nums,bool,list);
+                    list.remove(list.size()-1);
+                    bool[i]=false;
+                }
+            }
+        }
+        if(list.size()==nums.length)
+           ret.add(new ArrayList<>(list));
+    }
+    public List<List<Integer>> permute(int[] nums) {
+        boolean[] bool=new boolean[nums.length];
+        for(int i=0;i<nums.length;i++)
+           bool[i]=false;
+        fun(nums,bool,new ArrayList<>());
+        return ret;
+    }
+}
