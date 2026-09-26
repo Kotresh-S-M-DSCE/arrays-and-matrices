@@ -1,26 +1,55 @@
 class Solution {
     public int maxEqualRowsAfterFlips(int[][] matrix) {
-        int ret=1;
-        for(int i=0;i<matrix.length-1;i++)
+        // brute-force       
+        // int ret=1;
+        // for(int i=0;i<matrix.length-1;i++)
+        // {
+        //     int count=1;
+        //     for(int j=i+1;j<matrix.length;j++)
+        //     {
+        //         int f1=0,k=1;
+        //         if(matrix[i][0]==matrix[j][0])
+        //            f1=1;
+        //         for(;k<matrix[0].length;k++)
+        //         {
+        //             if((f1==1&&matrix[i][k]!=matrix[j][k])||(f1==0&&matrix[i][k]==matrix[j][k]))
+        //                break;
+        //         }
+        //         if(k==matrix[0].length)
+        //            count++;
+        //     }
+        //     if(count>ret)
+        //        ret=count;
+        // }
+        // return ret;
+        
+        // optimal
+        Map<String,Integer> map=new HashMap<>();
+        for(int i=0;i<matrix.length;i++)
         {
-            int count=1;
-            for(int j=i+1;j<matrix.length;j++)
+            StringBuilder sb=new StringBuilder();
+            if(matrix[i][0]==0)
             {
-                int f1=0,k=1;
-                if(matrix[i][0]==matrix[j][0])
-                   f1=1;
-                for(;k<matrix[0].length;k++)
-                {
-                    if((f1==1&&matrix[i][k]!=matrix[j][k])||(f1==0&&matrix[i][k]==matrix[j][k]))
-                       break;
-                }
-                if(k==matrix[0].length)
-                   count++;
+                for(int j=0;j<matrix[0].length;j++)
+                   sb.append(matrix[i][j]);
             }
-            if(count>ret)
-               ret=count;
+            else
+            {
+                for(int j=0;j<matrix[0].length;j++)
+                   sb.append(matrix[i][j]^1);//converting 1's to 0 and vice versa
+            }
+            if(!map.containsKey(sb.toString()))
+               map.put(sb.toString(),0);
+            int temp=map.get(sb.toString());
+            map.put(sb.toString(),temp+1);
         }
-        return ret;
+        int max=0;
+        for(Map.Entry<String,Integer> entry : map.entrySet())
+        {
+            if(entry.getValue()>max)
+               max=entry.getValue();
+        }
+        return max;
     }
 }
 // [1,0,0,0,1,1,1,0,1,1,1]
