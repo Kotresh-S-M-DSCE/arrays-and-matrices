@@ -1,0 +1,18 @@
+class Solution {
+    public void fun(int[][] image,int i,int j,int cur,int color,int[][] visit)
+    {
+        if(i<0||j<0||i==image.length||j==image[0].length||image[i][j]!=cur||visit[i][j]==1)
+           return;
+        int temp=image[i][j];
+        image[i][j]=color;
+        visit[i][j]=1;
+        fun(image,i,j-1,temp,color,visit);
+        fun(image,i-1,j,temp,color,visit);
+        fun(image,i,j+1,temp,color,visit);
+        fun(image,i+1,j,temp,color,visit);
+    }
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        fun(image,sr,sc,image[sr][sc],color,new int[image.length][image[0].length]);
+        return image;
+    }
+}
