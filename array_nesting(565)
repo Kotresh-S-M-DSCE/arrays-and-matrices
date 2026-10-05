@@ -1,0 +1,23 @@
+class Solution {
+    public int fun(int[] nums,int i,int[] visit,int num)
+    {
+        if(visit[nums[num]]==1)
+           return i;
+        visit[nums[num]]=1;
+        return fun(nums,i+1,visit,nums[num]);
+    }
+    public int arrayNesting(int[] nums) {
+        int[] visit=new int[nums.length];
+        int max=0;
+        for(int i=0;i<nums.length;i++)
+        {
+            if(visit[nums[i]]==0)
+            {
+                visit[nums[i]]=1;
+                int temp=fun(nums,1,visit,nums[i]);
+                max=Math.max(temp,max);
+            }
+        }
+        return max;
+    }
+}
