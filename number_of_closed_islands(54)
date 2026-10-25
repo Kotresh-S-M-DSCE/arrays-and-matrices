@@ -1,0 +1,33 @@
+class Solution {
+    public boolean dfs(int[][] grid,int[][] visit,int i,int j)
+    {
+        if(i<0||i==grid.length||j<0||j==grid[0].length||grid[i][j]==1||visit[i][j]==1)
+            return false;
+        if(grid[i][j]==0&&(i==0||i==grid.length-1||j==0||j==grid[0].length-1))
+            return true;
+        visit[i][j]=1;
+        boolean left=dfs(grid,visit,i,j-1);
+        boolean up=dfs(grid,visit,i-1,j);
+        boolean right=dfs(grid,visit,i,j+1);
+        boolean down=dfs(grid,visit,i+1,j);
+        if(left||up||right||down)
+            return true;
+        return false;
+    }
+    public int closedIsland(int[][] grid) {
+        int ret=0;
+        int[][] visit=new int[grid.length][grid[0].length];
+        for(int i=1;i<grid.length-1;i++)
+        {
+            for(int j=1;j<grid[0].length-1;j++)
+            {
+                if(visit[i][j]==0&&grid[i][j]==0)
+                {
+                    if(!dfs(grid,visit,i,j))
+                        ret++;
+                }
+            }
+        }
+        return ret;
+    }
+}
