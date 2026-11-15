@@ -1,0 +1,17 @@
+class Solution {
+    public int trap(int[] height) {
+        int[] post=new int[height.length];
+        int[] pre=new int[height.length];
+        pre[0]=height[0];
+        post[height.length-1]=height[height.length-1];
+        for(int i=1;i<height.length;i++)
+        {
+            pre[i]=Math.max(pre[i-1],height[i]);
+            post[height.length-1-i]=Math.max(post[height.length-i],height[height.length-1-i]);
+        }
+        int ret=0;
+        for(int i=0;i<height.length;i++)
+            ret+=Math.min(pre[i],post[i])-height[i];
+        return ret;
+    }
+}
